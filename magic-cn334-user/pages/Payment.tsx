@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardHeader, Divider, Image } from "@nextui-org/react"
+import { Button, Card, CardBody, CardFooter, CardHeader, Divider, Image } from "@nextui-org/react"
 import exp from "constants"
 import { Inter } from "next/font/google";
 
@@ -12,27 +12,25 @@ const inter = Inter({ subsets: ["latin"] });
 const Payment = () => {
     return (
         <main className={`flex min-h-screen w-screen flex-col items-center justify-between ${inter.className} border-slate-400`}>
-            <Backstep  />
+            <Backstep />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start w-screen p-14">
                 <div>
                     <Card className="bg-transparent text-white">
                         <CardHeader className="text-2xl font-bold">
-                            Payment
+                            Shopping cart
                         </CardHeader>
                         <CardBody>
                             You have 3 item in your cart
                         </CardBody>
                         <Divider />
-                        <CardHeader className="text-2xl font-bold">
-                            Select ur Location to Delivery
-                        </CardHeader>
-
-                        <CardBody className="w-full justify-center items-center">
-                            <CardCart />
-                            <CardCart />
-                            <CardCart />
-                        </CardBody>
+                        <CardHeader>
+                            <p className="text-2xl font-bold">ยอดรวมทั้งหมด : <span className="text-lg font-medium">681 บาท</span></p>                        </CardHeader>
                     </Card>
+                    <div className="flex flex-col w-full justify-center items-center">
+                            {Array.from({ length: 16 }).map((_, i) => (
+                               <CardCart key={i}/>
+                            ))}
+                        </div>
                 </div>
                 <div>
                     <CardLocation />

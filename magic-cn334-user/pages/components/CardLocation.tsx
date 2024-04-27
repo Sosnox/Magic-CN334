@@ -1,16 +1,21 @@
 import { Button, Card, CardBody, CardHeader, Divider } from "@nextui-org/react"
 import { CardPayment } from "./CarPayment"
+import { useState } from "react";
+import handler from '../api/hello';
 
 export const CardLocation = () => {
-    return (
-        <Card className="mb-4 py-4 justify-center items-center">
+    const [open, setOpen] = useState(false);
+    const toggleModal = () => setOpen(!open);
+
+        return (
+        <Card className="mb-4 py-4 justify-center items-center bg-[#1A365] rounded-2xl">
             <CardHeader>
-                <label className="text-2xl font-bold">
+                <label className="text-2xl font-bold text-white">
                     Location
                 </label>
             </CardHeader>
             <Divider />
-             <CardBody className="w-full text-black p-4 rounded-lg text-lg font-bold">
+             <CardBody className="w-full text-white px-12 rounded-lg text-lg font-normal">
                     <div className="flex justify-between mb-2">
                         <span>จังหวัด</span>
                         <span>ปทุมธานี</span>
@@ -29,12 +34,12 @@ export const CardLocation = () => {
                     </div>
             </CardBody>
             <CardHeader>
-                <label className="text-2xl font-bold">
+                <label className="text-2xl font-bold text-white mt-4">
                     Profile
                 </label>
             </CardHeader>
             <Divider />
-            <CardBody className="w-full text-black p-4 rounded-lg text-lg font-bold">
+            <CardBody className="w-full text-white px-12 rounded-lg text-lg font-normal">
                     <div className="flex justify-between mb-2">
                         <span>ชื่อจริง</span>
                         <span>กล้วยทอด</span>
@@ -52,8 +57,8 @@ export const CardLocation = () => {
                         <span>099-999-9999</span>
                     </div>
             </CardBody>
-            <Button color="success" className="text-white w-1/2">Confirm</Button>
-            <CardPayment/>
+            <Button color="success" className="text-white w-1/2" onClick={toggleModal}>Confirm</Button>
+            <CardPayment isOpen={open} onClose={toggleModal}/>
         </Card>
     )
 }

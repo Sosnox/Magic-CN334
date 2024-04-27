@@ -12,7 +12,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <div>
     <NextUIProvider>
       <NavBar />
-      <main className={`flex flex-1 w-full justify-center items-start pt-10 pb-10 ${inter.className} bg-[#2A4365]`}>
+      <main className={`flex flex-1 w-full justify-center items-start pt-10 pb-10 ${inter.className} bg-[#1A365D]`}>
         <Component {...pageProps} />
       </main>
     </NextUIProvider>

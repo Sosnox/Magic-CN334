@@ -1,5 +1,6 @@
 import { Inter } from "next/font/google";
 import BarAnimation from "./components/BarChart";
+
 const inter = Inter({ subsets: ["latin"] });
 
 const Overview = () => {
@@ -9,7 +10,7 @@ const Overview = () => {
                 <h1>Overview</h1>
             </div>
             <div className="grid grid-cols-2 mx-4">
-                 <BarAnimation />
+                 {/* <BarAnimation /> */}
                 card some thing her
             </div>
             <div className="">
@@ -18,4 +19,4 @@ const Overview = () => {
         </main>
     );
     }
-export default Overview;
+export default Overview

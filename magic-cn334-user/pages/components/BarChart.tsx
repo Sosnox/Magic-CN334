@@ -5,10 +5,11 @@ import Slider from '@mui/material/Slider';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import { BarChart } from '@mui/x-charts/BarChart';
+import { useState } from 'react';
 
 export default function BarAnimation() {
-  const [seriesNb, setSeriesNb] = React.useState(2);
-  const [itemNb, setItemNb] = React.useState(5);
+  const [seriesNb, setSeriesNb] = useState(2);
+  const [itemNb, setItemNb] = useState(5);
   const [skipAnimation, setSkipAnimation] = React.useState(false);
 
   const handleItemNbChange = (event: Event, newValue: number | number[]) => {

@@ -1,4 +1,4 @@
-import { Button, Card, CardBody, CardFooter, CardHeader ,Image } from "@nextui-org/react";
+import { Button, Card, CardBody, CardFooter, CardHeader, Image, Link } from "@nextui-org/react";
 
 const data = {
     title: "หนังสือไฟระวังร้อน",
@@ -6,7 +6,7 @@ const data = {
     category: "หนังสือ",
     element: "ไฟ",
     image: "category.jpg",
-    }
+}
 
 export const CardCategory = () => {
     return (
@@ -20,9 +20,11 @@ export const CardCategory = () => {
                 />
             </CardBody>
             <CardFooter className="justify-center py-1 absolute bottom-5 shadow-small ml-1 z-10">
-                <Button className="text-tiny text-white bg-[#FF304F] px-6" variant="flat" color="default" radius="sm" size="sm">
-                    หมวดหมู่
-                </Button>
+                <Link href="/ProductList">
+                    <Button className="text-tiny text-white bg-[#FF304F] px-6" variant="flat" color="default" radius="sm" size="sm">
+                        หมวดหมู่
+                    </Button>
+                </Link>
             </CardFooter>
         </Card>
     );

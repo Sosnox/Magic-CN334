@@ -1,15 +1,19 @@
 import Image from "next/image";
 import { NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Link, Button, Navbar, Input } from "@nextui-org/react";
-// import {SearchIcon} from "./SearchIcon.jsx";
+import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import ViewListOutlinedIcon from '@mui/icons-material/ViewListOutlined';
 
 export const NavBar = () => {
     return (
         <Navbar maxWidth="full"
             height="80px"
-            isBordered className="flex flex-row bg-[#1A365D] items-center">
+            isBordered className="flex flex-row bg-[#0E2F56] items-center">
             <NavbarBrand>
-                <Image src="/logoHome.png" alt="Mystic Script" width={70} height={40} />
-                <p className="font-bold text-2xl font-serif">Mystic Script</p>
+                <Link href="/">
+                    <Image src="/logoHome.png" alt="Mystic Script" width={70} height={40} />
+                    <p className="font-bold text-2xl font-serif text-white">Mystic Script</p>
+                </Link>
             </NavbarBrand>
 
             <NavbarContent className="hidden sm:flex gap-4" justify="center">
@@ -23,7 +27,7 @@ export const NavBar = () => {
                         }}
                         placeholder="Type to search..."
                         size="sm"
-                        // startContent={<SearchIcon size={18} />}
+                        startContent={<SearchOutlinedIcon />}
                         type="search"
                     />
                 </NavbarItem>
@@ -31,17 +35,19 @@ export const NavBar = () => {
 
             <NavbarContent justify="end" >
                 <NavbarItem isActive>
-                    <Link  href="#">
+                    <Link href="/Payment">
+                        <ShoppingCartOutlinedIcon />
                         Cart
                     </Link>
                 </NavbarItem>
                 <NavbarItem isActive>
-                    <Link href="#" aria-current="page">
+                    <Link href="/ProductList" aria-current="page">
+                        <ViewListOutlinedIcon />
                         All Product
                     </Link>
                 </NavbarItem>
                 <NavbarItem className="hidden lg:flex">
-                    <Link href="#">Login</Link>
+                    <Link href="/Login">Login</Link>
                 </NavbarItem>
                 <NavbarItem>
                     <Button as={Link} color="primary" href="#" variant="flat">

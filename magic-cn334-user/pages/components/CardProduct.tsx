@@ -1,4 +1,5 @@
 import { Card, CardHeader, CardBody, Image, Button, CardFooter } from "@nextui-org/react";
+import Link from "next/link";
 
 const data = {
   title: "หนังสือไฟระวังร้อน",
@@ -27,10 +28,14 @@ export const CardProduct = () => {
       </CardBody>
       <CardFooter className="absolute px-6 justify-between z-10 bottom-1">
         <Button className="text-tiny text-white bg-[#FF304F]" radius="sm" size="sm">
-          Add to cart
+          <Link href="/Payment">
+            Add to cart
+          </Link>
         </Button>
         <Button className="text-tiny text-white bg-[#FF304F]" radius="sm" size="sm">
-          Have it now!
+          <Link href="/Payment">
+            Have it now!
+          </Link>
         </Button>
       </CardFooter>
     </Card>
