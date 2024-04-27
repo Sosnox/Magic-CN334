@@ -8,7 +8,7 @@ export const Navbar = () => {
                 <label className="text-3xl">Mystic Script</label>
             </div>
             <div className="flex items-center space-x-4 text-2xl">
-                <a href="#" className="hover:underline">Home</a>
+                <a href="/ProductList" className="hover:underline">Home</a>
                 <a href="#" className="hover:underline">About</a>
                 <a href="#" className="hover:underline">Contact</a>
             </div>
