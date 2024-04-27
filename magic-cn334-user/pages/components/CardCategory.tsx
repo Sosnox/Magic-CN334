@@ -10,18 +10,18 @@ const data = {
 
 export const CardCategory = () => {
     return (
-        <Card className="py-4">
-            <CardBody className="overflow-visible py-2">
+        <Card className=" bg-[#2C5282] shadow-xl relative border-2 border-[#2A4365]">
+            <CardBody className="overflow-visible  w-full">
                 <Image
                     alt="Card background"
-                    className="object-cover rounded-xl"
+                    className="object-cover rounded-lg w-full"
                     src={`/${data.image}`}
                     width={270}
                 />
             </CardBody>
-            <CardFooter className="justify-center before:bg-white/10 border-white/20 border-1 overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-                <Button className="text-tiny text-white bg-[#FF304F] p-2" variant="flat" color="default" radius="lg" size="sm">
-                    Add to cart
+            <CardFooter className="justify-center py-1 absolute bottom-5 shadow-small ml-1 z-10">
+                <Button className="text-tiny text-white bg-[#FF304F] px-6" variant="flat" color="default" radius="sm" size="sm">
+                    หมวดหมู่
                 </Button>
             </CardFooter>
         </Card>

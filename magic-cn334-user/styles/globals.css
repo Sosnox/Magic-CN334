@@ -3,24 +3,41 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 14, 47, 86
+  --color-blue-50: #EBF8FF;
+  --color-blue-100: #BEE3F8;
+  --color-blue-200: #90CDF4;
+  --color-blue-300: #63B3ED;
+  --color-blue-400: #4299E1;
+  --color-blue-500: #3182CE;
+  --color-blue-600: #2B6CB0;
+  --color-blue-700: #2C5282;
+  --color-blue-800: #2A4365;
+  --color-blue-900: #1A365D;
+
+  --text-rgb: var(--color-blue-50);
+  --foreground-rgb: 255, 255, 255;
+  --background-rgb: var(--color-blue-800);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --foreground-rgb: 255, 255, 255;
-    --background-rgb: 14, 47, 86; /* Same color for simplicity */
+    --background-rgb: var(--color-blue-600);
   }
 }
 
 body {
   color: rgb(var(--foreground-rgb));
-  background-color: rgb(var(--background-rgb)); /* Use a solid color instead of gradient */
+  background-color: rgb(var(--background-rgb)); /* Apply the solid background color */
 }
 
+/* Additional utility classes */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+label {
+  color: #EBF8FF;
 }
