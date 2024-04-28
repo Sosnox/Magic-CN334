@@ -9,7 +9,7 @@ interface LoginProps {
     password: string;
 }
 
-const Register = () => {
+const Register = ( {changeState} : {changeState : any}) => {
     const [data, setData] = useState<LoginProps>({
         email: "",
         password: "",
@@ -25,8 +25,11 @@ const Register = () => {
             console.log(error);
         }
     }
+    const changeUI = () => {
+        changeState();
+    }
     return (
-        <main className="relative h-screen w-screen flex flex-col justify-center items-center ">
+        <main className="relative h-screen w-screen flex flex-col justify-center items-center bg-[#1A365D]">
             <Image src="/BGlogin.svg" alt="logo" className="w-full h-full absolute" />
             <div className="flex flex-col justify-center items-center gap-4 w-1/2">
                 <div className="-mt-36">
@@ -76,7 +79,10 @@ const Register = () => {
                             }))}
                             className="max-w-md text-white"
                         />
-                        <Button size="lg" variant="ghost" radius="sm" className="text-white" onClick={handleRegisterClick}>Create Account</Button>
+                        <div className="flex w-full justify-center gap-4">
+                            <Button size="lg" variant="ghost" radius="sm" className="text-white" onClick={changeUI}>Log in</Button>
+                            <Button size="lg" variant="ghost" radius="sm" className="text-white bg-[#2B6CB0]" onClick={handleRegisterClick}>Create Account</Button>
+                        </div>
                     </CardBody>
                 </Card>
             </div>
