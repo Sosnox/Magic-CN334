@@ -1,14 +1,14 @@
 import { Button, Card, CardBody, CardHeader, Divider } from "@nextui-org/react"
 import { CardPayment } from "./CarPayment"
 import { useState } from "react";
-import handler from '../api/hello';
+
 
 export const CardLocation = () => {
     const [open, setOpen] = useState(false);
     const toggleModal = () => setOpen(!open);
 
         return (
-        <Card className="mb-4 py-4 justify-center items-center bg-[#1A365] rounded-2xl">
+        <Card className="mb-4 py-4 justify-center items-center bg-[#1A365] rounded-2xl px-4">
             <CardHeader>
                 <label className="text-2xl font-bold text-white">
                     Location
@@ -39,7 +39,7 @@ export const CardLocation = () => {
                 </label>
             </CardHeader>
             <Divider />
-            <CardBody className="w-full text-white px-12 rounded-lg text-lg font-normal">
+            <CardBody className="w-full text-white px-12 rounded-lg text-lg font-normal mb-5">
                     <div className="flex justify-between mb-2">
                         <span>ชื่อจริง</span>
                         <span>กล้วยทอด</span>

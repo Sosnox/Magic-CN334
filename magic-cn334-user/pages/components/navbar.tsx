@@ -3,8 +3,18 @@ import { NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, N
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import ViewListOutlinedIcon from '@mui/icons-material/ViewListOutlined';
+import { useState } from "react";
+import Cart from "./Cart";
+import { removeAccessToken } from "../cookie/cookie";
 
 export const NavBar = () => {
+    const [isOpen, setIsOpen] = useState(false);
+    const toggleCart = () => { setIsOpen(!isOpen) };
+
+    const handleLogout = () => {
+        removeAccessToken();
+    }
+
     return (
         <Navbar maxWidth="full"
             height="80px"
@@ -35,23 +45,21 @@ export const NavBar = () => {
 
             <NavbarContent justify="end" >
                 <NavbarItem isActive>
-                    <Link href="/Payment">
-                        <ShoppingCartOutlinedIcon />
-                        Cart
-                    </Link>
-                </NavbarItem>
-                <NavbarItem isActive>
                     <Link href="/ProductList" aria-current="page">
                         <ViewListOutlinedIcon />
                         All Product
                     </Link>
                 </NavbarItem>
-                <NavbarItem className="hidden lg:flex">
-                    <Link href="/Login">Login</Link>
+                <NavbarItem isActive>
+                    <Button onClick={toggleCart}>
+                        <ShoppingCartOutlinedIcon />
+                        Cart
+                        <Cart isOpen={isOpen} onClose={toggleCart} />
+                    </Button>
                 </NavbarItem>
-                <NavbarItem>
-                    <Button as={Link} color="primary" href="#" variant="flat">
-                        Sign Up
+                <NavbarItem className="hidden lg:flex">
+                    <Button onClick={handleLogout}>
+                        Log out
                     </Button>
                 </NavbarItem>
             </NavbarContent>

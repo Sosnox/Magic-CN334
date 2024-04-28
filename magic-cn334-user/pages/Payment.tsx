@@ -15,7 +15,7 @@ const Payment = () => {
             <Backstep />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start w-screen p-14">
                 <div>
-                    <Card className="bg-transparent text-white">
+                    <Card className="bg-transparent text-white pl-4">
                         <CardHeader className="text-2xl font-bold">
                             Shopping cart
                         </CardHeader>

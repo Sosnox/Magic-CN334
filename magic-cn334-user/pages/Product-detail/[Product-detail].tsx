@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import { Backstep } from "../components/Backstep";
 import { Button, Card, CardBody, CardFooter, CardHeader, Divider, Image, Link } from "@nextui-org/react";
 import { useState } from "react";
+import { Typography } from "@mui/material";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -71,27 +72,39 @@ const ProductDetail = () => {
                             alt="Nebula Noir Hoodie"
                             className="object-contain w-full"
                         />
+                        <div className="grid grid-flow-col gap-4 mt-4 p-4 w-1/2">
+                            {Array.from({ length: 4 }).map((_, i) => (
+                                <Image
+                                    src="/Magic.png"
+                                    width={1200}
+                                    alt="Magic"
+                                />
+                            ))}
+                        </div>
                         <div className="flex flex-row w-full justify-end items-center mt-5 ">
+                            <label className="text-xl">จำนวน :</label>
+                            <div className="flex items-center justify-center bg-white shadow-md rounded mx-4 p-1">
+                                <button
+                                    onClick={decreaseQuantity}
+                                    className="px-3 py-1 text-gray-500 hover:bg-gray-100 focus:outline-none"
+                                >
+                                    -
+                                </button>
+                                <span className="px-4 text-black">{quantity}</span>
+                                <button
+                                    onClick={increaseQuantity}
+                                    className="px-3 py-1 text-gray-500 hover:bg-gray-100 focus:outline-none"
+                                >
+                                    +
+                                </button>
+                            </div>
                             <Link href="/Payment">
-                                <Button className="bg-[#FF304F] text-white w-full rounded-lg mr-4">
+                                <Button className="bg-[#FF304F] text-white w-full rounded-lg mx-4 ">
                                     Add to Cart
                                 </Button>
                             </Link>
-                            <Button
-                                onClick={decreaseQuantity}
-                                className="text-gray-500"
-                            >
-                                -
-                            </Button>
-                            <span className="mx-4">{quantity}</span>
-                            <Button
-                                onClick={increaseQuantity}
-                                className="text-gray-500"
-                            >
-                                +
-                            </Button>
                             <Link href="/Payment">
-                                <Button className="bg-[#FF304F] text-white w-full rounded-lg ml-4">
+                                <Button className="bg-[#FF304F] text-white w-full rounded-lg mx-4">
                                     Have it now!
                                 </Button>
                             </Link>
