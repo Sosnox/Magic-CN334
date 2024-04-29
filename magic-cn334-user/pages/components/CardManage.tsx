@@ -52,11 +52,11 @@ export const CardManage: React.FC<CardManageProps> = ({ product }) => {
                 <div>
                     <p>{product.price}</p>
                 </div>
-                <div>
+                <div className="cursor-pointer">
                     <BorderColorOutlinedIcon />
                 </div>
                 <div>
-                    <p>DELETE</p>
+                    <p className="cursor-pointer">DELETE</p>
                 </div>
             </div>
 
