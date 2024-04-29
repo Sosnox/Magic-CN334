@@ -62,7 +62,7 @@ console.log(Revenue, "Revenue")
     return (
         <main className={`flex min-h-screen w-full flex-col items-center px-16 ${inter.className}`}>
             <div className="flex w-full items-center mb-6">
-                <label className="text-5xl font-semibold mr-5">Overview</label>
+                <Link href="/Manage" className="text-5xl font-semibold mr-5">Overview</Link>
                 <label className="text-xl text-[#3182CE] font-medium underline italic">Product management</label>
             </div>
             <div className="grid grid-cols-2 mx-4 w-full gap-16">

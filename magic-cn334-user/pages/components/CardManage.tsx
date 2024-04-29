@@ -1,24 +1,45 @@
 import { Image } from "@nextui-org/react"
 import BorderColorOutlinedIcon from '@mui/icons-material/BorderColorOutlined';
 
-export const CardManage = () => {
+interface Product {
+    id: number;
+    name: string;
+    description: string;
+    price: number;
+    category_id: number;
+    element_id: number;
+    left_quantity: number;
+    sales_quantity: number;
+    category: string;
+    element: string;
+    img: { img: string }[];
+}
+
+interface CardManageProps {
+    product: Product;
+}
+
+export const CardManage: React.FC<CardManageProps> = ({ product }) => {
     return (
         <div className="flex justify-between items-center bg-slate-200 text-black w-full my-4 rounded-lg">
             <div className="flex items-center m-4 gap-5">
                 <div>
-                    <Image src="/logo.png" alt="logo" width={100} height={100} />
+                    <Image src={`http://210.246.215.173:8002/static/${product.img[0].img}`} alt="logo" width={100} height={100} />
                 </div>
                 <div className="flex flex-col">
-                    <p>Item 1</p>
-                    <p>Item 1</p>
+                    <p>{product.name}</p>
+                    <p>{product.description}</p>
                 </div>
             </div>
             <div className="m-4 flex gap-5">
                 <div>
-                    <p>Price</p>
+                    <p>{product.price}</p>
                 </div>
                 <div>
                     <BorderColorOutlinedIcon />
+                </div>
+                <div>
+                    <p>DELETE</p>
                 </div>
             </div>
 
