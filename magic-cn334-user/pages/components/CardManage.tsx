@@ -20,6 +20,23 @@ interface CardManageProps {
 }
 
 export const CardManage: React.FC<CardManageProps> = ({ product }) => {
+
+    const delPro = async () => {
+        const formData = new FormData()
+        formData.append('product_id',product.id.toString())
+
+        try{
+            const res = await fetch('http://210.246.215.173:8002/mgmt/product', {
+                method: 'DELETE',
+                body: formData
+            });
+            const resData = await res.json()
+        }
+        catch(error){
+            throw error
+        }
+    }
+
     return (
         <div className="flex justify-between items-center bg-slate-200 text-black w-full my-4 rounded-lg">
             <div className="flex items-center m-4 gap-5">
