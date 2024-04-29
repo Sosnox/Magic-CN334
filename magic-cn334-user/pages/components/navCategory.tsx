@@ -1,10 +1,17 @@
-import React, { useState } from "react";
-import { Listbox, ListboxItem } from "@nextui-org/react";
+import React, { use, useEffect, useState } from "react";
+import { Divider, Listbox, ListboxItem } from "@nextui-org/react";
 import { ListboxWrapper } from "./ListboxWrapper";
+import { Typography } from "@mui/material";
 
-export const NavCategory = () => {
+export const NavCategory = ({ setCategory , setElement } : {setCategory : any , setElement : any}) => {
     const [selectedElement, setSelectedElement] = useState<any>("");
     const [selectedCategory, setSelectedCategory] = useState<any>("");
+
+    // useEffect(() => {
+    //     setCategory(selectedCategory);
+    //     setElement(selectedElement);
+    // }, [selectedElement, selectedCategory]);
+
     const Element = [
         {
             key: "ดิน",
@@ -42,45 +49,47 @@ export const NavCategory = () => {
         }
     ];
 
-    console.log(selectedElement, "selectedElement")
-    console.log(selectedCategory , "selectedCategory")
-
     return (
         <div>
+            <ListboxWrapper>
+                <div className="p-4">
+                    <Typography variant="h5">Element</Typography>
+                    <Listbox
+                        items={Element}
+                        aria-label="Dynamic Actions"
+                        onAction={(key) => setSelectedElement(key)}
+                    >
+                        {(item) => (
+                            <ListboxItem
+                                key={item.key}
+                                color="default"
+                            >
+                                {item.label}
+                            </ListboxItem>
+                        )}
+                    </Listbox>
+                </div>
+            </ListboxWrapper>
+            <br />
 
             <ListboxWrapper>
-            <label>Element</label>
-                <Listbox
-                    items={Element}
-                    aria-label="Dynamic Actions"
-                    onAction={(key) => setSelectedElement(key)}
-                >
-                    {(item) => (
-                        <ListboxItem
-                            key={item.key}
-                            color="default"
-                        >
-                            {item.label}
-                        </ListboxItem>
-                    )}
-                </Listbox>
-            </ListboxWrapper>
-            <ListboxWrapper>
-                <label>Category</label>
-                <Listbox
-                    items={Category}
-                    aria-label="Dynamic Actions"
-                    onAction={(key) => setSelectedCategory(key)}
-                >
-                    {(item) => (
-                        <ListboxItem
-                            key={item.key}
-                            color="default"
-                        >
-                            {item.label}
-                        </ListboxItem>
-                    )}
-                </Listbox>
+                <div className="p-4">
+                    <Typography variant="h5">Category</Typography>
+                    <Listbox
+                        items={Category}
+                        aria-label="Dynamic Actions"
+                        onAction={(key) => setSelectedCategory(key)}
+                    >
+                        {(item) => (
+                            <ListboxItem
+                                key={item.key}
+                                color="default"
+                            >
+                                {item.label}
+                            </ListboxItem>
+                        )}
+                    </Listbox>
+                </div>
             </ListboxWrapper>
         </div>
     );

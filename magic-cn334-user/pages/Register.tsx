@@ -2,7 +2,10 @@ import { Button, Card, CardBody, CardHeader, Image, Input } from "@nextui-org/re
 import { useState } from "react";
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import RegisterAuth from "./api/auth/registerAuth";
+import RegisterAuth from "./api/auth/post/registerAuth";
+import { AlertSuccess } from "./components/alertSuccess";
+import { AlertFail } from "./components/alertFail";
+import { ToastContainer } from "react-toastify";
 
 interface LoginProps {
     email: string;
@@ -20,9 +23,14 @@ const Register = ( {changeState} : {changeState : any}) => {
 
     const handleRegisterClick = async () => {
         try {
-            await RegisterAuth(data);
+            const respone = await RegisterAuth(data);
+            if (respone.status) {
+                changeState();
+                AlertSuccess("Register Success")
+            }
         } catch (error) {
             console.log(error);
+            AlertFail("Register Fail")
         }
     }
     const changeUI = () => {
@@ -86,6 +94,7 @@ const Register = ( {changeState} : {changeState : any}) => {
                     </CardBody>
                 </Card>
             </div>
+            <ToastContainer />
         </main>
     );
 }

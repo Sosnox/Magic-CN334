@@ -2,9 +2,13 @@ import { Button, Card, CardBody, CardHeader, Image, Input } from "@nextui-org/re
 import { useState } from "react";
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import loginAuth from "./api/auth/loginAuth";
-import RegisterAuth from "./api/auth/registerAuth";
+import loginAuth from "./api/auth/post/loginAuth";
+import RegisterAuth from "./api/auth/post/registerAuth";
 import Register from "./Register";
+import Cookies from 'js-cookie';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { AlertFail } from "./components/alertFail";
 
 interface LoginProps {
     email: string;
@@ -14,9 +18,10 @@ interface Props {
     onLogin: (loginStatus: boolean) => void; // Function to handle login status
 }
 
+
+
 const Login = ({ onLogin }: Props) => {
     const [stateLogin, setStateLogin] = useState<boolean>(true);
-
     const changeState = () => {
         setStateLogin(!stateLogin);
     }
@@ -30,23 +35,22 @@ const Login = ({ onLogin }: Props) => {
         try {
             const response = await loginAuth(data);
             if (response.status) {
-                console.log("Login successful:", response.message);
+                Cookies.set('authToken', response.message.access_token, { expires: 1 });
                 onLogin(true);
-                localStorage.setItem("accessToken", response.message.access_token);
-
             } else {
                 console.log("Login failed:", response.message);
+                AlertFail("Not registered Na Ja")
                 onLogin(false);
             }
         } catch (error) {
             console.error('Error logging in:', error);
+            AlertFail("Login Fail Ja")
             onLogin(false);
         }
     };
 
     const [isVisible, setIsVisible] = useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
-    console.log(data, "data")
 
     if (stateLogin) {
         return (
@@ -99,6 +103,7 @@ const Login = ({ onLogin }: Props) => {
                             <Button size="lg" variant="ghost" radius="sm" className="text-white bg-[#2B6CB0]" onClick={handleLoginClick}>Log In</Button>
                         </div>
                     </div>
+                    <ToastContainer />
                 </div>
             </main>
         );

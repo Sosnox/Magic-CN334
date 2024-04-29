@@ -2,7 +2,9 @@ import Image from "next/image";
 import { NavbarBrand, NavbarContent, NavbarItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem, Link, Button, Navbar, Input } from "@nextui-org/react";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import ViewListOutlinedIcon from '@mui/icons-material/ViewListOutlined';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AccountCircleOutlinedIcon from '@mui/icons-material/AccountCircleOutlined';
+
 import { useState } from "react";
 import Cart from "./Cart";
 import { removeAccessToken } from "../cookie/cookie";
@@ -45,20 +47,24 @@ export const NavBar = () => {
 
             <NavbarContent justify="end" >
                 <NavbarItem isActive>
-                    <Link href="/ProductList" aria-current="page">
-                        <ViewListOutlinedIcon />
-                        All Product
-                    </Link>
-                </NavbarItem>
-                <NavbarItem isActive>
                     <Button onClick={toggleCart}>
                         <ShoppingCartOutlinedIcon />
                         Cart
                         <Cart isOpen={isOpen} onClose={toggleCart} />
                     </Button>
                 </NavbarItem>
+                <NavbarItem isActive>
+                    <Link href="/Profile">
+                        <Button>
+                            <AccountCircleOutlinedIcon />
+                            Profile
+                            <Cart isOpen={isOpen} onClose={toggleCart} />
+                        </Button>
+                    </Link>
+                </NavbarItem>
                 <NavbarItem className="hidden lg:flex">
                     <Button onClick={handleLogout}>
+                        <LogoutIcon />
                         Log out
                     </Button>
                 </NavbarItem>

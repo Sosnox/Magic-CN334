@@ -1,23 +1,35 @@
+import { Card, CardFooter, Button, CardBody } from "@nextui-org/react";
+import Image from "next/image";
 
-import { Card, CardFooter, Image, Button } from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
 
 export const Advert = () => {
+  const imageArray = [
+    '/baner1.png',
+    '/baner2.png',
+    '/baner3.png',
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % imageArray.length);
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="relative w-full mb-16">
-      <Card className="border-2 h-96 p-4 mx-4">
-        {/* <Image
-          src="/Backgound.jpg"
-          alt="Advert Image"
-          className="object-cover w-full"
-          width="100%"
-          height="auto"
-        /> */}
-        <CardFooter className="justify-center before:bg-white/10  overflow-hidden py-1 absolute before:rounded-xl rounded-large bottom-1 w-[calc(100%_-_8px)] shadow-small ml-1 z-10">
-          <Button className=" text-white bg-black/20 p-2 text-xl" variant="flat" color="default" radius="lg" size="sm">
+    <div className="flex justify-center items-center w-full mb-16 ">
+      <Card className="flex flex-row border-2 justify-center items-center w-[90%] h-[700px]">
+          <Image src={imageArray[currentIndex]} alt={`baner${currentIndex + 1}`} fill/>
+        <CardFooter className="justify-center py-1 absolute bottom-1 shadow-small ml-1 z-10">
+          <Button className="text-white bg-black/20 p-2 text-xl" variant="flat" color="default" radius="lg" size="sm">
             Check it out!
           </Button>
         </CardFooter>
       </Card>
     </div>
   );
-}
+};

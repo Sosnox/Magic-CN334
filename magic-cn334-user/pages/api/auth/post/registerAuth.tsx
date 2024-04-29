@@ -19,10 +19,10 @@ const RegisterAuth = async (data: User): Promise<any> => {
         if (response.ok) {
             return responseData;
         } else {
-            throw new Error(responseData.message || "Registration failed");
+            throw new Error(responseData.message);
         }
     } catch (error) {
-        console.error('Error creating user:', error);
+        console.error(error);
         throw error;
     }
 }
