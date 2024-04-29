@@ -2,9 +2,11 @@ import { Button, Card, CardBody, CardHeader, Image, Input } from "@nextui-org/re
 import { useState } from "react";
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import loginAuth from "./api/auth/loginAuth";
-import RegisterAuth from "./api/auth/registerAuth";
+import loginAuth from "./api/auth/post/loginAuth";
+import RegisterAuth from "./api/auth/post/registerAuth";
 import Register from "./Register";
+import Cookies from 'js-cookie';
+
 
 interface LoginProps {
     email: string;
@@ -16,7 +18,7 @@ interface Props {
 
 const Login = ({ onLogin }: Props) => {
     const [stateLogin, setStateLogin] = useState<boolean>(true);
-
+    const [token , setToken] = useState<string>("");
     const changeState = () => {
         setStateLogin(!stateLogin);
     }
@@ -30,9 +32,9 @@ const Login = ({ onLogin }: Props) => {
         try {
             const response = await loginAuth(data);
             if (response.status) {
-                console.log("Login successful:", response.message);
+                setToken(response.message.access_token);
+                Cookies.set('authToken', response.message.access_token, { expires: 1 });
                 onLogin(true);
-                localStorage.setItem("accessToken", response.message.access_token);
 
             } else {
                 console.log("Login failed:", response.message);
@@ -46,7 +48,6 @@ const Login = ({ onLogin }: Props) => {
 
     const [isVisible, setIsVisible] = useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
-    console.log(data, "data")
 
     if (stateLogin) {
         return (

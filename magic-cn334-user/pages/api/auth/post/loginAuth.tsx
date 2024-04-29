@@ -17,13 +17,12 @@ const loginAuth = async (data: User): Promise<any> => {
         });
         const responseData = await response.json();
         if (response.ok) {
-            console.log('Login successful:', responseData);
             return responseData;
         } else {
-            throw new Error(responseData.message || "Registration failed");
+            throw new Error(responseData.message);
         }
     } catch (error) {
-        console.error('Error creating user:', error);
+        console.error(error);
         throw error;
     }
 }

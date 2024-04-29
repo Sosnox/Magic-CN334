@@ -2,7 +2,7 @@ import { Button, Card, CardBody, CardHeader, Image, Input } from "@nextui-org/re
 import { useState } from "react";
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import RegisterAuth from "./api/auth/registerAuth";
+import RegisterAuth from "./api/auth/post/registerAuth";
 
 interface LoginProps {
     email: string;

@@ -9,14 +9,16 @@ import { useEffect, useState } from "react";
 import Cookies from 'js-cookie';
 
 const inter = Inter({ subsets: ["latin"] });
+type Tokens = string;
 
 export default function App({ Component, pageProps }: AppProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-
+  const Tokens = Cookies.get('authToken');
   const handleLogin = (status: boolean) => {
     setIsLoggedIn(status);
     if (status) {
-      Cookies.set('access_token', 'your_access_token_here', { expires: 1 });
+      const tokens = Tokens || '';
+      Cookies.set('access_token', tokens, { expires: 0.5 });
     } else {
       Cookies.remove('access_token');
     }
@@ -38,7 +40,7 @@ export default function App({ Component, pageProps }: AppProps) {
       ) : (
         <NextUIProvider>
           <NavBar />
-          <main className={`flex flex-1 w-full justify-center items-start pt-10 pb-10 ${inter.className} bg-[#1A365D]`}>
+          <main className={`py-10 ${inter.className} bg-[#1A365D]`}>
             <Component {...pageProps} />
           </main>
         </NextUIProvider>

@@ -1,6 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  images: {
+    domains: ['localhost'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: '210.246.215.173:8002',
+        pathname: '/static/**',
+      },
+      // If you want to allow any localhost port
+    ],
+  },
 };
 
 export default nextConfig;
