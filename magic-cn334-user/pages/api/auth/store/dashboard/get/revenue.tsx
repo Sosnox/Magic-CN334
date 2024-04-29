@@ -8,6 +8,7 @@ const GetRevenue = async (): Promise<any> => {
         const response = await fetch(endpoint, {
             method: "GET",
         });
+        console.log(response , "response")
         const responseData = await response.json();
         if (response.ok) {
             return responseData;

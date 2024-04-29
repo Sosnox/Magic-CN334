@@ -1,12 +1,9 @@
 import { Inter } from "next/font/google";
 
-import { Category } from "./components/category";
 import { ExampleProduct } from "./components/ExampleProduct";
-import { NavCategory } from "./components/navCategory";
-
 import { Productsort } from "./components/Productsort";
-// import Carousel from "./components/Carouesl";
 import { Advert } from "./components/advert";
+import { AlertSuccess } from "./components/alertSuccess";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +15,7 @@ export default function Home() {
         <Advert />
         <ExampleProduct />
         <Productsort />
+        {/* <AlertSuccess/> */}
     </main>
   );
 }

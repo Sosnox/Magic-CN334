@@ -1,14 +1,62 @@
 import { Inter } from "next/font/google";
 import { Backstep } from "../components/Backstep";
 import { Button, Card, CardBody, CardFooter, CardHeader, Divider, Image, Link } from "@nextui-org/react";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Typography } from "@mui/material";
+import { useRouter } from "next/router";
+import getProductById from "../api/auth/store/get/productById";
 
 
 const inter = Inter({ subsets: ["latin"] });
+interface ProductById {
+    id: number,
+    name: string,
+    description: string,
+    price: number,
+    category_id: number,
+    element_id: number,
+    left_quantity: number,
+    sales_quantity: number,
+    category: string,
+    element: string,
+    img: { img: string }[]
+}
 
 const ProductDetail = () => {
+
+    const router = useRouter();
+    const { id } = router.query
+
     const [quantity, setQuantity] = useState(1);
+    const [data, setData] = useState<ProductById>({
+        id: 0,
+        name: "",
+        description: "",
+        price: 0,
+        category_id: 0,
+        element_id: 0,
+        left_quantity: 0,
+        sales_quantity: 0,
+        category: "",
+        element: "",
+        img: [{ img: "" }]
+    });
+
+    const fetchData = async () => {
+        if (typeof id === 'string') {
+            try {
+                const dataById = await getProductById(Number(id));
+                const dataByIdDict = dataById.message[0]
+                setData(dataByIdDict)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
+
+    useEffect(() => {
+        fetchData();
+    }, [])
 
     const decreaseQuantity = () => {
         if (quantity > 1) {
@@ -19,30 +67,31 @@ const ProductDetail = () => {
     const increaseQuantity = () => {
         setQuantity(quantity + 1);
     };
+    console.log(data, "data NNNNNN")
 
     return (
         <main className={`flex min-h-screen w-screen flex-col items-center justify-between ${inter.className} border-slate-400`}>
             <div className="container mx-auto px-4 ">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <h2 className="text-2xl font-bold mb-4">Product Detail : ไม้เวทมนต์</h2>
+                        <label className="text-2xl font-bold mb-4">Product Detail</label>
                         <Card className="bg-transparent text-white">
                             <CardHeader>
                                 <label className="text-2xl font-bold">
-                                    ไม้เวทมนต์ไฟร้อนเเรง!
+                                {data.name}
                                 </label>
                             </CardHeader>
                             <CardBody>
-                                <text>
-                                    Immerse yourself in cosmic fashion. Unveil the enigmatic allure of the Nebula Noir Hoodie. Embrace its cozy and durable charm. Elevate your style to celestial heights. Get yours today!
-                                </text>
+                                <label>
+                                    {data.description}
+                                </label>
                             </CardBody>
                             <Divider />
                             <CardFooter>
                                 <label >
-                                    Element :  <br />
-                                    Category :  <br />
-                                    Price : <br />
+                                    Element :  {data.element}<br />
+                                    Category :  {data.category}<br />
+                                    Price : {data.price} $<br />
                                 </label>
                             </CardFooter>
                         </Card>

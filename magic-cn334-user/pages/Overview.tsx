@@ -10,6 +10,8 @@ import { DashboardAmount } from './components/dashboardAmount';
 import topProduct from "./api/auth/store/dashboard/get/topProduct";
 import { useEffect, useState } from "react";
 import GetDetail from "./api/auth/store/dashboard/get/detail";
+import GetGraph from "./api/auth/store/dashboard/get/graph";
+import GetRevenue from "./api/auth/store/dashboard/get/revenue";
 
 
 
@@ -32,11 +34,18 @@ interface ProductById {
 const Overview = () => {
     const [DatatopProduct, setDatatopProduct] = useState([]);
     const [Detail, setDetail] = useState([]);
+    const [Graph, setGraph] = useState([])
+    const [Revenue, setRevenue] = useState([])
 
     const fetchData = async () => {
         try {
             const top = await topProduct();
-            const detail = await GetDetail();
+            const detail = await GetDetail()
+            const grapData = await GetGraph();
+            const TopRevenue = await GetRevenue();
+
+            setRevenue(TopRevenue)
+            setGraph(grapData.message)
             setDetail(detail.message)
             setDatatopProduct(top.message)
         } catch (error) {
@@ -48,7 +57,8 @@ const Overview = () => {
         fetchData();
     }, [])
 
-
+console.log(Graph, "Graph")
+console.log(Revenue, "Revenue")
     return (
         <main className={`flex min-h-screen w-full flex-col items-center px-16 ${inter.className}`}>
             <div className="flex w-full items-center mb-6">
@@ -57,11 +67,11 @@ const Overview = () => {
             </div>
             <div className="grid grid-cols-2 mx-4 w-full gap-16">
                 <div className="flex justify-center items-center bg-black rounded-xl p-5 h-full">
-                    <BarChartPage />
+                    {/* <BarChartPage data={Graph}/> */}
                 </div>
                 <div className="flex flex-col rounded-xl">
                     <Servicedb />
-                    <TotalRevenue />
+                    <TotalRevenue data={Revenue}/>
                 </div>
             </div>
             <div className="grid grid-cols-2 mx-4 w-full gap-16 mt-14">
