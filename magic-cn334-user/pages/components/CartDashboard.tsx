@@ -4,7 +4,6 @@ import { fetchImage } from "./fetchImage"
 
 
 export const CardDashboard = ({ data }: { data: any }) => {
-    console.log(data, "data")
     return (
                 <div className="grid grid-cols-5 bg-white rounded-lg w-full text-zinc-900 py-5 justify-between items-center px-5 font-bold text-xl my-4">
                     <div className='aspect-[2/1] overflow-hidden relative mx-2'>

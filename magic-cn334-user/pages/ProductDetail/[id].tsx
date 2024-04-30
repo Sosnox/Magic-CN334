@@ -5,6 +5,10 @@ import { use, useEffect, useState } from "react";
 import { Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import getProductById from "../api/auth/store/get/productById";
+import { fetchImage } from "../components/fetchImage";
+import AddCartPost from "../api/auth/post/addCart";
+import { AlertSuccess } from "../components/alertSuccess";
+import { ToastContainer } from "react-toastify";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,7 +31,6 @@ const ProductDetail = () => {
     const router = useRouter();
     const { id } = router.query
 
-    const [quantity, setQuantity] = useState(1);
     const [data, setData] = useState<ProductById>({
         id: 0,
         name: "",
@@ -41,7 +44,7 @@ const ProductDetail = () => {
         element: "",
         img: [{ img: "" }]
     });
-
+    
     const fetchData = async () => {
         if (typeof id === 'string') {
             try {
@@ -58,24 +61,28 @@ const ProductDetail = () => {
         fetchData();
     }, [])
 
-    const decreaseQuantity = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
+    const AddCart = async () => {
+        try {
+            const respones = await AddCartPost({
+                product_id: Number(id),
+                quantity: 1
+              })
+            if (respones.status){
+                AlertSuccess("Add to Cart Success")
+            }
+            console.log(respones, "responesCart")
+        } catch (error) {
+            console.log(error)
         }
-    };
-
-    const increaseQuantity = () => {
-        setQuantity(quantity + 1);
-    };
-    console.log(data, "data NNNNNN")
+    }
 
     return (
         <main className={`flex min-h-screen w-screen flex-col items-center justify-between ${inter.className} border-slate-400`}>
             <div className="container mx-auto px-4 ">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <label className="text-2xl font-bold mb-4">Product Detail</label>
-                        <Card className="bg-transparent text-white">
+                        <label className="text-4xl font-bold mb-4">Product Detail</label>
+                        <Card className="bg-transparent text-white mt-5">
                             <CardHeader>
                                 <label className="text-2xl font-bold">
                                 {data.name}
@@ -117,48 +124,24 @@ const ProductDetail = () => {
                     </div>
                     <div className="container justify-center">
                         <Image
-                            src="/Magic.png"
+                            src={fetchImage(data.img[0].img)}
                             alt="Nebula Noir Hoodie"
                             className="object-contain w-full"
                         />
-                        <div className="grid grid-flow-col gap-4 mt-4 p-4 w-1/2">
-                            {Array.from({ length: 4 }).map((_, i) => (
-                                <Image
-                                    src="/Magic.png"
-                                    width={1200}
-                                    alt="Magic"
-                                />
-                            ))}
-                        </div>
                         <div className="flex flex-row w-full justify-end items-center mt-5 ">
-                            <label className="text-xl">จำนวน :</label>
-                            <div className="flex items-center justify-center bg-white shadow-md rounded mx-4 p-1">
-                                <button
-                                    onClick={decreaseQuantity}
-                                    className="px-3 py-1 text-gray-500 hover:bg-gray-100 focus:outline-none"
-                                >
-                                    -
-                                </button>
-                                <span className="px-4 text-black">{quantity}</span>
-                                <button
-                                    onClick={increaseQuantity}
-                                    className="px-3 py-1 text-gray-500 hover:bg-gray-100 focus:outline-none"
-                                >
-                                    +
-                                </button>
+                            <div className="w-1/6 mx-4">
+                                <Button className=" text-white w-full rounded-lg mx-4" variant="ghost" onClick={AddCart}>
+                                    Have it now!
+                                </Button>
                             </div>
                             <Link href="/Payment">
-                                <Button className="bg-[#FF304F] text-white w-full rounded-lg mx-4 ">
+                                <Button className="bg-[#2B6CB0] text-white w-full rounded-lg mx-4 " onClick={AddCart}>
                                     Add to Cart
-                                </Button>
-                            </Link>
-                            <Link href="/Payment">
-                                <Button className="bg-[#FF304F] text-white w-full rounded-lg mx-4">
-                                    Have it now!
                                 </Button>
                             </Link>
                         </div>
                     </div>
+                    <ToastContainer />
                 </div>
             </div>
         </main>

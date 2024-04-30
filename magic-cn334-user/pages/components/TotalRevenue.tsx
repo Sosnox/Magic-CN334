@@ -1,6 +1,6 @@
 export const TotalRevenue = (data : any) => {
     return (
-        <div className="flex flex-col bg-orange-400 h-full rounded-xl text-xl mt-10 p-5">
+        <div className="flex flex-col bg-[#2C5282] h-full rounded-xl text-xl mt-10 p-5">
             <label className="text-3xl font-bold">
                 Total Revenue :
             </label>

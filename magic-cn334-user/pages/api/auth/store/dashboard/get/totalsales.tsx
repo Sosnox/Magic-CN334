@@ -2,7 +2,7 @@
 
 const endpoint = process.env.NEXT_PUBLIC_API_URL_DASHBOARD + '/dashboard/totalsales';
 
-const TotalSale = async (): Promise<any> => {
+const getTotalSale = async (): Promise<any> => {
 
     try {
         const response = await fetch(endpoint, {
@@ -21,4 +21,4 @@ const TotalSale = async (): Promise<any> => {
     }
 }
 
-export default TotalSale;
+export default getTotalSale;
