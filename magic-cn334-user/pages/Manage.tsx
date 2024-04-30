@@ -3,10 +3,31 @@ import { Backstep } from "./components/Backstep"
 import { CardManage } from "./components/CardManage"
 import { Inter } from "next/font/google";
 import { CardAddProduct } from "./components/CardAddProduct";
+import { ChangeEvent, useEffect, useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
-const Manage = () => {
+const Manage =  () => {
+    const [products, setProduct] = useState([]);
+
+    const download = async () => {
+        try{
+            const res = await fetch('http://210.246.215.173:8002/mgmt/product', {
+                method: 'GET'
+            });
+            const resData = await res.json()
+            setProduct(resData.message)
+            console.log(products)
+        }
+        catch(error){
+            throw error
+        }
+    }
+
+    useEffect(() => {
+        download();
+    }, []);
+
     return (
         <main className={`flex min-h-screen w-screen flex-col items-center justify-between ${inter.className} border-slate-400`}>
             <Backstep />
@@ -22,10 +43,10 @@ const Manage = () => {
                         <Divider />
                     </Card>
                     <div className="flex flex-col w-full justify-center items-center">
-                            {Array.from({ length: 5 }).map((_, i) => (
-                               <CardManage key={i}/>
-                            ))}
-                        </div>
+                    {products.map((product, index) => (
+                        <CardManage key={index} product={product} />
+                    ))}
+                    </div>
                 </div>
                 <div>
                     <CardAddProduct />

@@ -7,12 +7,24 @@ import { useState } from "react";
 export const CardAddProduct = () => {
     const [open, setOpen] = useState(false);
 
-    const animals = [
-        { value: 'dog', label: 'Dog' },
-        { value: 'cat', label: 'Cat' },
-        { value: 'bird', label: 'Bird' },
-        { value: 'rabbit', label: 'Rabbit' },
-        { value: 'snake', label: 'Snake' }
+    const category = [
+        { value: '1', label: 'Potion' },
+        { value: '2', label: 'Book' },
+        { value: '3', label: 'Relic' },
+        { value: '4', label: 'Accesories' },
+        { value: '5', label: 'Scroll' },
+        { value: '6', label: 'Staff' },
+        { value: '7', label: 'Stone' },
+        { value: '8', label: 'Recipe' }
+    ];
+
+    const element = [
+        { value: '1', label: 'Dark' },
+        { value: '2', label: 'Fire' },
+        { value: '3', label: 'Light' },
+        { value: '4', label: 'Nature' },
+        { value: '5', label: 'Time' },
+        { value: '6', label: 'Water' }
     ];
 
     return (
@@ -39,23 +51,23 @@ export const CardAddProduct = () => {
                         <div className="flex flex-col w-full gap-2">
                             <label>Category</label>
                             <Select
-                                items={animals}
+                                items={category}
                                 label="Category"
                                 placeholder="Select an animal"
                                 className=""
                             >
-                                {(animal) => <SelectItem key={animal.value}>{animal.label}</SelectItem>}
+                                {(category) => <SelectItem key={category.value}>{category.label}</SelectItem>}
                             </Select>
                         </div>
                         <div className="flex flex-col w-full gap-2">
                             <label>Element</label>
                             <Select
-                                items={animals}
+                                items={element}
                                 label="Element"
                                 placeholder="Select an animal"
                                 className="w-full"
                             >
-                                {(animal) => <SelectItem key={animal.value}>{animal.label}</SelectItem>}
+                                {(element) => <SelectItem key={element.value}>{element.label}</SelectItem>}
                             </Select>
                         </div>
                 </div>
