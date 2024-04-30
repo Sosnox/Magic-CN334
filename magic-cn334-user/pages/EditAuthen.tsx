@@ -17,7 +17,6 @@ const EditAuthen = ({ changeState }: { changeState: any }) => {
     });
     const [isVisible, setIsVisible] = useState(false);
     const toggleVisibility = () => setIsVisible(!isVisible);
-    console.log(data, "data")
 
     const handleRegisterClick = async () => {
         try {

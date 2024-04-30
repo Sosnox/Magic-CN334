@@ -78,11 +78,11 @@ export default function Cart({ isOpen, onClose }: { isOpen: boolean, onClose: an
           <IconButton onClick={onClose}>
             <CloseIcon />
           </IconButton>
-        </Box>
+        </Box>x
         <Divider />
         <div>
-          {Cart.map((item) => (
-            <CartInCart data={item} changeRevenue={changeRevenue}/>
+          {Cart.map((item,key) => (
+            <CartInCart data={item} key={key} changeRevenue={changeRevenue}/>
           ))}
         </div>
         <Divider />

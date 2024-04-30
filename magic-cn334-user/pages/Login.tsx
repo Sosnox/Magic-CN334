@@ -19,13 +19,11 @@ interface Props {
 }
 
 
-
 const Login = ({ onLogin }: Props) => {
     const [stateLogin, setStateLogin] = useState<boolean>(true);
     const changeState = () => {
         setStateLogin(!stateLogin);
     }
-    console.log(stateLogin , "stateLogin")
     const [data, setData] = useState<LoginProps>({
         email: "",
         password: "",
@@ -35,15 +33,13 @@ const Login = ({ onLogin }: Props) => {
         try {
             const response = await loginAuth(data);
             if (response.status) {
-                Cookies.set('authToken', response.message.access_token, { expires: 1 });
+                Cookies.set('authToken', response.message.access_token, { expires: 0.5 });
                 onLogin(true);
             } else {
-                console.log("Login failed:", response.message);
                 AlertFail("Not registered Na Ja")
                 onLogin(false);
             }
         } catch (error) {
-            console.error('Error logging in:', error);
             AlertFail("Login Fail Ja")
             onLogin(false);
         }

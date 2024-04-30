@@ -11,7 +11,8 @@ import GetDetail from "./api/auth/store/dashboard/get/detail";
 import GetGraph from "./api/auth/store/dashboard/get/graph";
 import GetRevenue from "./api/auth/store/dashboard/get/revenue";
 import OrderCompleted from "./api/auth/store/dashboard/get/ordercompleted";
-import getTotalSale from "./api/auth/store/dashboard/get/totalSales";
+import getTotalSale from "./api/auth/store/dashboard/get/totalsales";
+
 
 
 
@@ -63,9 +64,6 @@ const Overview = () => {
     useEffect(() => {
         fetchData();
     }, [])
-console.log(TotalSale, "TotalSale")
-console.log(OrderCom, "OrderCom")
-console.log(Detail, "Graph")
 
     return (
         <main className={`flex min-h-screen w-full flex-col items-center px-16 ${inter.className}`}>

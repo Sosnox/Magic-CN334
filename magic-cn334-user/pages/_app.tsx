@@ -32,7 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
     } else {
       handleLogin(false);
     }
-  }, []);
+  }, [Tokens]);
 
   return (
     <div>

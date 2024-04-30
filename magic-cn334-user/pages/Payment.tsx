@@ -51,7 +51,6 @@ const Payment = () => {
     useEffect(() => {
         fetchData()
     }, [])
-    console.log(data, "data")
 
     return (
         <main className={`flex min-h-screen w-screen flex-col items-center justify-between ${inter.className} border-slate-400`}>

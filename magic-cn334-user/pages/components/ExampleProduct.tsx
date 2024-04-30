@@ -21,8 +21,6 @@ export const ExampleProduct = () => {
         fetchData()
     }, [])
 
-// console.log("ExampleProduct", data)
-
     return (
         <div className="flex flex-col items-center gap-4 w-full mb-12">
             <div className="flex shrink-0 gap-6 mb-4">

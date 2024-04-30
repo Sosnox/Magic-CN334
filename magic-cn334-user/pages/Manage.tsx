@@ -17,7 +17,7 @@ const Manage =  () => {
             });
             const resData = await res.json()
             setProduct(resData.message)
-            console.log(products)
+
         }
         catch(error){
             throw error
