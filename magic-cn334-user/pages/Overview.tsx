@@ -1,8 +1,6 @@
 import { Inter } from "next/font/google";
 import BarChartPage from "./components/BarChart";
 import { Card, CardHeader, Link } from "@nextui-org/react";
-import { List, Typography } from "@mui/material";
-import InsertLinkOutlinedIcon from '@mui/icons-material/InsertLinkOutlined';
 import { CardDashboard } from "./components/CartDashboard";
 import { Servicedb } from './components/Servicedb';
 import { TotalRevenue } from "./components/TotalRevenue";
@@ -63,11 +61,11 @@ console.log(Revenue, "Revenue")
         <main className={`flex min-h-screen w-full flex-col items-center px-16 ${inter.className}`}>
             <div className="flex w-full items-center mb-6">
                 <label className="text-5xl font-semibold mr-5">Overview</label>
-                <label className="text-xl text-[#3182CE] font-medium underline italic">Product management</label>
+                <Link className="text-xl text-[#3182CE] font-medium underline italic" href="/Manage">Product management</Link>
             </div>
             <div className="grid grid-cols-2 mx-4 w-full gap-16">
                 <div className="flex justify-center items-center bg-black rounded-xl p-5 h-full">
-                    {/* <BarChartPage data={Graph}/> */}
+                    <BarChartPage data={Graph}/>
                 </div>
                 <div className="flex flex-col rounded-xl">
                     <Servicedb />
