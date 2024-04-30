@@ -1,50 +1,69 @@
 import { Button, Card, CardBody, CardHeader, Image } from "@nextui-org/react"
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import getProductById from "../api/auth/store/get/productById";
+import { fetchImage } from "./fetchImage";
+interface ProductById {
+  id: number,
+  name: string,
+  description: string,
+  price: number,
+  category_id: number,
+  element_id: number,
+  left_quantity: number,
+  sales_quantity: number,
+  category: string,
+  element: string,
+  img: { img: string }[]
+}
 
-export const CardCart = () => {
-  const [quantity, setQuantity] = useState(1);
-
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
+export const CardCart = ({ data, changeRevenue} : {data : any , changeRevenue : any }) => {
+  const [ product, setProduct ] = useState<ProductById>(
+    {
+        id: 0,
+        name: "",
+        description: "",
+        price: 0,
+        category_id: 0,
+        element_id: 0,
+        left_quantity: 0,
+        sales_quantity: 0,
+        category: "",
+        element: "",
+        img: [{img: ""}]
     }
-  };
+)
+const fetchData = async () => {
+  try {
+      const Data = await getProductById(data.product_id);
+      const DataProduct = Data.message[0]
+      setProduct(DataProduct)
+  }
+  catch (error) {
+      console.log(error);
+  }
+}
+useEffect(() => {
+  fetchData();
+}, [])
 
-  const increaseQuantity = () => {
-    setQuantity(quantity + 1);
-  };
+useEffect(() => {
+  if (product.price > 0) { 
+      changeRevenue(product.price);
+  }
+}, [product.price]);
+
 
   return (
     <div className="flex items-center justify-between p-4 text-black bg-white shadow-lg hover:shadow-md rounded-md w-2/3 my-3">
       <div className="flex items-center">
-        <Image src="/Magic.png" alt="Thumbnail" className="h-12 w-12 rounded mr-4 shadow-md" />
+        <Image src={fetchImage(product.img[0].img)} alt="Thumbnail" className="h-12 w-12 rounded mr-4 shadow-md" />
         <div>
-          <p className="text-lg font-bold ">Item 1</p>
-          <p className="text-sm">Some description</p>
+          <p className="text-lg font-bold ">{product?.name}</p>
+          <p className="text-sm">{product?.description}</p>
         </div>
       </div>
       <div className="flex flex-row">
-        <p className="text-lg font-bold">$100</p>
-      </div>
-      <div className="flex flex-row">
-        <div className="flex items-center mx-4">
-          <Button
-            onClick={decreaseQuantity}
-            className="text-white bg-[#90CDF4] hover:text-white "
-          >
-            -
-          </Button>
-          <span className="mx-5">{quantity}</span>
-          <Button
-            onClick={increaseQuantity}
-            className="text-white bg-[#90CDF4] hover:text-white "
-          >
-            +
-          </Button>
-        </div>
-        <Button className=" bg-white hover:bg-[#63B3ED]">
-          <Image src="/bin.svg" alt="Delete" className="h-6 w-6" />
-        </Button>
+        <p className="text-lg font-bold">${product.price}</p>
       </div>
     </div>
   )

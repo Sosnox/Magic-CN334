@@ -22,7 +22,6 @@ const darkTheme = createTheme({
 export default function Cart({ isOpen, onClose }: { isOpen: boolean, onClose: any }) {
   const [Cart, setCart] = useState([]);
   const [revenue , setRevenue] = useState(0)
-  const [getRevenue , setGetRevenue] = useState(0)
 
   const changeRevenue = (price : any) => {
     setRevenue(prevRevenue => prevRevenue + price);
@@ -37,7 +36,6 @@ export default function Cart({ isOpen, onClose }: { isOpen: boolean, onClose: an
     try {
       const respones = await getCart();
       setCart(respones.message)
-      console.log(Cart, "getrespones")
     }
     catch (error) {
       console.log(error);
@@ -52,6 +50,7 @@ export default function Cart({ isOpen, onClose }: { isOpen: boolean, onClose: an
       const respone = await deleteAllCart()
       if (respone.status){
         AlertSuccess("Delete All Cart Success")
+        setRevenue(0)
         onClose()
       }
     }
@@ -59,7 +58,7 @@ export default function Cart({ isOpen, onClose }: { isOpen: boolean, onClose: an
       console.log(error)
     }
   }
-  console.log(Cart, "getrespones")
+
   const list = (
     <ThemeProvider theme={darkTheme}>
       <Box
@@ -88,14 +87,12 @@ export default function Cart({ isOpen, onClose }: { isOpen: boolean, onClose: an
         </div>
         <Divider />
         <Box sx={{ p: 2 }}>
-          {/* Subtotal, Taxes, Shipping, and Total cost */}
           <Typography variant="body1">Taxes: $0.00 USD</Typography>
           <Typography variant="body1">Shipping: Calculated at checkout</Typography>
           <Divider sx={{ my: 1 }} />
           <Typography variant="h6">Total: ${revenue} USD</Typography>
         </Box>
         <div className='flex m-4 gap-4'>
-          {/* Proceed to Checkout button */}
           <Button variant="outlined" fullWidth className='text-xs' onClick={deleteCart}>
             Delete All Cart
           </Button>

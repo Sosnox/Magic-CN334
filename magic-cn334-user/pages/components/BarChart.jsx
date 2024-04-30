@@ -16,42 +16,53 @@ const options = {
   responsive: true,
   plugins: {
     legend: {
-      position: 'top'
+      position: 'top',
     },
+  },
+  scales: {
+    x: {
+      title: {
+        display: true,
+        text: 'Hour',
+        font: {
+          size: 16,
+          weight: 'bold',
+        },
+      },
+    },
+    y: {
+      title: {
+        display: true,
+        text: 'Revenue',
+        font: {
+          size: 16,
+          weight: 'bold',
+        },
+      },
+    }
   },
 };
 
 const BarChartPage = ({ data }) => {
-  // const [label, setLabel] = useState([]);
-  // const [data1, setData1] = useState([]);
+  const chartData = {
+    labels: data?.label,
+    datasets: [
+      {
+        label: `Date ${data?.today}`,
+        data: data.data,
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      }
+    ],
+  };
 
-  // if (data) {
-    // const Data = data.data;
-    // const Data1 = Object.values(Data);
-  //   setData1(Data1[0]?.data);
-  //   setLabel(Data1[0]?.label);
-  // }
-
-  // const chartData = {
-  //   labels: label,
-  //   datasets: [
-  //     {
-  //       label: 'Dataset 1',
-  //       data: data1,
-  //       backgroundColor: 'rgba(255, 99, 132, 0.5)',
-  //     }
-  //   ],
-  // };
-  // data.array.forEach(element => {
-    
-  // });
   console.log(data)
 
   return (
     <div className='w-full h-full'>
       <label className="text-3xl font-bold ">Today Revenue</label>
-      <p className="text-2xl font-bold ml-4">$ 1000</p>
-      {/* <Bar data={data} options={options} /> */}
+      <br/>
+      <label className="text-2xl font-bold ml-4">$ 1000</label>
+      <Bar data={chartData} options={options} />
     </div>
   );
 }

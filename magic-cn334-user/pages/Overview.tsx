@@ -10,6 +10,9 @@ import { useEffect, useState } from "react";
 import GetDetail from "./api/auth/store/dashboard/get/detail";
 import GetGraph from "./api/auth/store/dashboard/get/graph";
 import GetRevenue from "./api/auth/store/dashboard/get/revenue";
+import OrderCompleted from "./api/auth/store/dashboard/get/ordercompleted";
+import getTotalSale from "./api/auth/store/dashboard/get/totalsales";
+
 
 
 
@@ -34,6 +37,8 @@ const Overview = () => {
     const [Detail, setDetail] = useState([]);
     const [Graph, setGraph] = useState([])
     const [Revenue, setRevenue] = useState([])
+    const [TotalSale, setTotalSale] = useState([])
+    const [OrderCom, setOrderCom] = useState([])
 
     const fetchData = async () => {
         try {
@@ -41,7 +46,10 @@ const Overview = () => {
             const detail = await GetDetail()
             const grapData = await GetGraph();
             const TopRevenue = await GetRevenue();
-
+            const totalsale = await getTotalSale()
+            const OrderCom = await OrderCompleted()
+            setTotalSale(totalsale.message)
+            setOrderCom(OrderCom.message)
             setRevenue(TopRevenue)
             setGraph(grapData.message)
             setDetail(detail.message)
@@ -54,9 +62,10 @@ const Overview = () => {
     useEffect(() => {
         fetchData();
     }, [])
+console.log(TotalSale, "TotalSale")
+console.log(OrderCom, "OrderCom")
+console.log(Detail, "Graph")
 
-console.log(Graph, "Graph")
-console.log(Revenue, "Revenue")
     return (
         <main className={`flex min-h-screen w-full flex-col items-center px-16 ${inter.className}`}>
             <div className="flex w-full items-center mb-6">
@@ -64,7 +73,7 @@ console.log(Revenue, "Revenue")
                 <Link className="text-xl text-[#3182CE] font-medium underline italic" href="/Manage">Product management</Link>
             </div>
             <div className="grid grid-cols-2 mx-4 w-full gap-16">
-                <div className="flex justify-center items-center bg-black rounded-xl p-5 h-full">
+                <div className="flex justify-center items-center bg-[#142232] rounded-xl p-5 h-full">
                     <BarChartPage data={Graph}/>
                 </div>
                 <div className="flex flex-col rounded-xl">
@@ -74,9 +83,9 @@ console.log(Revenue, "Revenue")
             </div>
             <div className="grid grid-cols-2 mx-4 w-full gap-16 mt-14">
                 <div className="flex flex-col rounded-xl">
-                    <DashboardAmount detail={Detail}/>
+                    <DashboardAmount detail={Detail} TotalSale={TotalSale} OrderCom={OrderCom} Revenue={Revenue}/>
                 </div>
-                <div className="flex flex-col bg-orange-400 h-full rounded-xl text-xl p-5">
+                <div className="flex flex-col bg-[#2C5282] h-full rounded-xl text-xl p-5">
                     <label className="text-3xl font-bold mb-4">
                         Total Products :
                     </label>

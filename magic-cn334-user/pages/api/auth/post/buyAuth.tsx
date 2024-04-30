@@ -1,12 +1,18 @@
+import { getAccessToken } from "@/pages/cookie/cookie";
 
 
-const endpoint = process.env.NEXT_PUBLIC_API_URL_DASHBOARD + '/dashboard/totalsales';
+const endpoint = process.env.NEXT_PUBLIC_API_URL_AUTH + '/auth/buy';
 
-const getTotalSale = async (): Promise<any> => {
+
+const buyAuth = async (): Promise<any> => {
+    const token = getAccessToken();
 
     try {
         const response = await fetch(endpoint, {
-            method: "GET",
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
         });
         const responseData = await response.json();
         if (response.ok) {
@@ -14,11 +20,10 @@ const getTotalSale = async (): Promise<any> => {
         } else {
             throw new Error(responseData.message);
         }
-
     } catch (error) {
         console.error(error);
         throw error;
     }
 }
 
-export default getTotalSale;
+export default buyAuth;
