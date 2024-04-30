@@ -11,7 +11,8 @@ import GetDetail from "./api/auth/store/dashboard/get/detail";
 import GetGraph from "./api/auth/store/dashboard/get/graph";
 import GetRevenue from "./api/auth/store/dashboard/get/revenue";
 import OrderCompleted from "./api/auth/store/dashboard/get/ordercompleted";
-import getTotalSale from "./api/auth/store/dashboard/get/totalsales";
+import getTotalSale from "./api/auth/store/dashboard/get/totalSales";
+
 
 
 
