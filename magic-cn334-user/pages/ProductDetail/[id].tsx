@@ -130,13 +130,13 @@ const ProductDetail = () => {
                         />
                         <div className="flex flex-row w-full justify-end items-center mt-5 ">
                             <div className="w-1/6 mx-4">
-                                <Button className=" text-white w-full rounded-lg mx-4" variant="ghost" onClick={AddCart}>
-                                    Have it now!
+                                <Button className=" bg-[#2B6CB0] text-white w-full rounded-lg mx-4" onClick={AddCart}>
+                                    Add to Cart
                                 </Button>
                             </div>
                             <Link href="/Payment">
-                                <Button className="bg-[#2B6CB0] text-white w-full rounded-lg mx-4 " onClick={AddCart}>
-                                    Add to Cart
+                                <Button className=" text-white w-full rounded-lg mx-4 " variant="ghost" onClick={AddCart}>
+                                Have it now!
                                 </Button>
                             </Link>
                         </div>

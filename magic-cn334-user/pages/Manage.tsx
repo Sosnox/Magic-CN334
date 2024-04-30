@@ -29,7 +29,7 @@ const Manage =  () => {
     }, []);
 
     return (
-        <main className={`flex min-h-screen w-screen flex-col items-center justify-between ${inter.className} border-slate-400`}>
+        <main className={`flex  w-screen flex-col items-center justify-between ${inter.className} border-slate-400`}>
             <Backstep />
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start w-screen p-14">
                 <div>
@@ -42,7 +42,7 @@ const Manage =  () => {
                         </CardBody>
                         <Divider />
                     </Card>
-                    <div className="flex flex-col w-full justify-center items-center">
+                    <div className="flex flex-col w-full p-2 pt-12 h-[60vh] justify-center items-center overflow-auto">
                     {products.map((product, index) => (
                         <CardManage key={index} product={product} />
                     ))}

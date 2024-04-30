@@ -14,11 +14,11 @@ export const SearchToggle: React.FC<SearchToggleProps> = ({ productDict }) => {
     }, [productDict]);
 
     const handleClick = (value:number) => {
-        router.push(`/Product-detail/${value}`);
+        router.push(`/ProductDetail/${value}`);
     };
 
     return (
-        <ul className="overflow-auto h-[26vh] absolute top-0">
+        <ul className="overflow-auto h-[26vh] absolute top-16 rounded-lg">
             {Object.entries(dict).map(([key, value]) => (
                 <li 
                     className='p-2 bg-white cursor-pointer'

@@ -107,8 +107,8 @@ export const Productsort = () => {
                     <div className="justify-start w-full text-white">Sort Element</div>
                     <Select
                         items={element}
-                        label="Favorite Animal"
-                        placeholder="Select an animal"
+                        label=""
+                        placeholder="Select an element"
                         className="max-w-xs"
                         onChange={handleSelectChangeEle}
                     >
@@ -119,8 +119,8 @@ export const Productsort = () => {
                     <div className="justify-start w-full text-white">Sort Category</div>
                     <Select
                         items={category}
-                        label="Favorite Animal"
-                        placeholder="Select an animal"
+                        label=""
+                        placeholder="Select a category"
                         className="max-w-xs"
                         onChange={handleSelectChangeCate}
                     >
