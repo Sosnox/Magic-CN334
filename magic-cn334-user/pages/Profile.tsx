@@ -6,7 +6,10 @@ import deliveryAuth from "./api/auth/post/deliveryAuth";
 import profileAuth from "./api/auth/post/profileAuth";
 import getProfileAuth from "./api/auth/get/profileAuth";
 import getDeliveryAuth from "./api/auth/get/deliveryAuth";
-import { TextField } from "@mui/material";
+import { Alert, TextField } from "@mui/material";
+import { AlertSuccess } from "./components/alertSuccess";
+import { AlertFail } from "./components/alertFail";
+import { ToastContainer } from "react-toastify";
 
 
 
@@ -49,9 +52,11 @@ const Profile = () => {
         try {
             await profileAuth(profile)
             await deliveryAuth(delivery)
+            AlertSuccess("Edit Profile Success")
         }
         catch (error) {
             console.log(error)
+            AlertFail("Edit Profile Fail")
         }
     }
 
@@ -148,6 +153,7 @@ const Profile = () => {
                     </div>
                 </CardFooter>
             </Card>
+            <ToastContainer />
         </main>)
 }
 export default Profile;

@@ -1,9 +1,16 @@
-import * as React from 'react';
 import { Box, Drawer, Divider, Typography, IconButton, List, ListItem, ListItemText, Button, ThemeProvider } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import { createTheme } from '@mui/material/styles';
+import getCart from '../api/auth/get/getCart';
+import { useEffect, useState } from 'react';
+import getProductById from '../api/auth/store/get/productById';
+import { CartInCart } from './CartInCart';
+import { Image } from '@nextui-org/react';
+import deleteAllCart from '../api/auth/delete/deleteCart';
+import { AlertSuccess } from './alertSuccess';
+import { ToastContainer } from 'react-toastify';
 
 // Define a theme to match the dark theme in the screenshot
 const darkTheme = createTheme({
@@ -13,17 +20,44 @@ const darkTheme = createTheme({
 });
 
 export default function Cart({ isOpen, onClose }: { isOpen: boolean, onClose: any }) {
-  // Sample cart item data - this would be dynamic in a real application
-  const cartItems = [
-    {
-      name: "Acme Circles T-Shirt",
-      variant: "Black / XS",
-      price: "$15.00 USD",
-      quantity: 1,
-      image: "/path/to/tshirt-image.png", // Replace with actual image path
-    },
-    // ... other cart items
-  ];
+  const [Cart, setCart] = useState([]);
+  const [revenue , setRevenue] = useState(0)
+
+  const changeRevenue = (price : any) => {
+    setRevenue(prevRevenue => prevRevenue + price);
+  }
+
+  const changePath = () => {
+    onClose()
+    window.location.href = '/Payment'
+  }
+  console.log(revenue, "revenue")
+  const fetchData = async () => {
+    try {
+      const respones = await getCart();
+      setCart(respones.message)
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+  useEffect(() => {
+    fetchData();
+  }, [isOpen])
+
+  const deleteCart = async () => {
+    try {
+      const respone = await deleteAllCart()
+      if (respone.status){
+        AlertSuccess("Delete All Cart Success")
+        setRevenue(0)
+        onClose()
+      }
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
 
   const list = (
     <ThemeProvider theme={darkTheme}>
@@ -46,39 +80,26 @@ export default function Cart({ isOpen, onClose }: { isOpen: boolean, onClose: an
           </IconButton>
         </Box>
         <Divider />
-        <List>
-          {cartItems.map((item, index) => (
-            <ListItem key={index} sx={{ py: 1 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                {/* Image - replace with actual img tag or MUI Image component */}
-                <Box component="img" src={item.image} sx={{ width: 50, height: 50, borderRadius: '50%', mr: 2 }} alt={item.name} />
-                <ListItemText primary={item.name} secondary={item.variant} />
-                <Box sx={{ marginLeft: 'auto', textAlign: 'right' }}>
-                  <Typography variant="body1">{item.price}</Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <IconButton size="small"><RemoveIcon /></IconButton>
-                    <Typography sx={{ mx: 1 }}>{item.quantity}</Typography>
-                    <IconButton size="small"><AddIcon /></IconButton>
-                  </Box>
-                </Box>
-              </Box>
-            </ListItem>
+        <div>
+          {Cart.map((item) => (
+            <CartInCart data={item} changeRevenue={changeRevenue}/>
           ))}
-        </List>
+        </div>
         <Divider />
         <Box sx={{ p: 2 }}>
-          {/* Subtotal, Taxes, Shipping, and Total cost */}
           <Typography variant="body1">Taxes: $0.00 USD</Typography>
           <Typography variant="body1">Shipping: Calculated at checkout</Typography>
           <Divider sx={{ my: 1 }} />
-          <Typography variant="h6">Total: $15.00 USD</Typography>
+          <Typography variant="h6">Total: ${revenue} USD</Typography>
         </Box>
-        <Box sx={{ p: 2 }}>
-          {/* Proceed to Checkout button */}
-          <Button variant="contained" fullWidth>
+        <div className='flex m-4 gap-4'>
+          <Button variant="outlined" fullWidth className='text-xs' onClick={deleteCart}>
+            Delete All Cart
+          </Button>
+          <Button variant="contained" fullWidth className='text-xs'onClick={changePath}>
             Proceed to Checkout
           </Button>
-        </Box>
+        </div>
       </Box>
     </ThemeProvider>
   );
@@ -88,7 +109,7 @@ export default function Cart({ isOpen, onClose }: { isOpen: boolean, onClose: an
       anchor="right"
       open={isOpen}
       onClose={onClose}
-    >
+    ><ToastContainer />
       {list}
     </Drawer>
   );

@@ -1,15 +1,16 @@
 import { getAccessToken } from "@/pages/cookie/cookie";
 
-const endpoint = process.env.NEXT_PUBLIC_API_URL_STORE + '/store/productById/';
+const endpoint = process.env.NEXT_PUBLIC_API_URL_AUTH + '/auth/Cart';
 
-interface ProductById {
-    id: number;
-}
-const getProductById = async (id : number): Promise<any> => {
+const getCart = async (): Promise<any> => {
+    const token = getAccessToken();
 
     try {
-        const response = await fetch(`${endpoint}${id}`,{
+        const response = await fetch(endpoint, {
             method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
         });
         const responseData = await response.json();
         if (response.ok) {
@@ -24,4 +25,4 @@ const getProductById = async (id : number): Promise<any> => {
     }
 }
 
-export default getProductById;
+export default getCart;

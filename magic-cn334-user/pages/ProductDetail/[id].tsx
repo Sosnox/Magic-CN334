@@ -1,48 +1,104 @@
 import { Inter } from "next/font/google";
 import { Backstep } from "../components/Backstep";
 import { Button, Card, CardBody, CardFooter, CardHeader, Divider, Image, Link } from "@nextui-org/react";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
 import { Typography } from "@mui/material";
+import { useRouter } from "next/router";
+import getProductById from "../api/auth/store/get/productById";
+import { fetchImage } from "../components/fetchImage";
+import AddCartPost from "../api/auth/post/addCart";
+import { AlertSuccess } from "../components/alertSuccess";
+import { ToastContainer } from "react-toastify";
 
 
 const inter = Inter({ subsets: ["latin"] });
+interface ProductById {
+    id: number,
+    name: string,
+    description: string,
+    price: number,
+    category_id: number,
+    element_id: number,
+    left_quantity: number,
+    sales_quantity: number,
+    category: string,
+    element: string,
+    img: { img: string }[]
+}
 
 const ProductDetail = () => {
-    const [quantity, setQuantity] = useState(1);
 
-    const decreaseQuantity = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1);
+    const router = useRouter();
+    const { id } = router.query
+
+    const [data, setData] = useState<ProductById>({
+        id: 0,
+        name: "",
+        description: "",
+        price: 0,
+        category_id: 0,
+        element_id: 0,
+        left_quantity: 0,
+        sales_quantity: 0,
+        category: "",
+        element: "",
+        img: [{ img: "" }]
+    });
+    
+    const fetchData = async () => {
+        if (typeof id === 'string') {
+            try {
+                const dataById = await getProductById(Number(id));
+                const dataByIdDict = dataById.message[0]
+                setData(dataByIdDict)
+            } catch (error) {
+                console.log(error)
+            }
         }
-    };
+    }
 
-    const increaseQuantity = () => {
-        setQuantity(quantity + 1);
-    };
+    useEffect(() => {
+        fetchData();
+    }, [])
+
+    const AddCart = async () => {
+        try {
+            const respones = await AddCartPost({
+                product_id: Number(id),
+                quantity: 1
+              })
+            if (respones.status){
+                AlertSuccess("Add to Cart Success")
+            }
+            console.log(respones, "responesCart")
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <main className={`flex min-h-screen w-screen flex-col items-center justify-between ${inter.className} border-slate-400`}>
             <div className="container mx-auto px-4 ">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div>
-                        <h2 className="text-2xl font-bold mb-4">Product Detail : ไม้เวทมนต์</h2>
-                        <Card className="bg-transparent text-white">
+                        <label className="text-4xl font-bold mb-4">Product Detail</label>
+                        <Card className="bg-transparent text-white mt-5">
                             <CardHeader>
                                 <label className="text-2xl font-bold">
-                                    ไม้เวทมนต์ไฟร้อนเเรง!
+                                {data.name}
                                 </label>
                             </CardHeader>
                             <CardBody>
-                                <text>
-                                    Immerse yourself in cosmic fashion. Unveil the enigmatic allure of the Nebula Noir Hoodie. Embrace its cozy and durable charm. Elevate your style to celestial heights. Get yours today!
-                                </text>
+                                <label>
+                                    {data.description}
+                                </label>
                             </CardBody>
                             <Divider />
                             <CardFooter>
                                 <label >
-                                    Element :  <br />
-                                    Category :  <br />
-                                    Price : <br />
+                                    Element :  {data.element}<br />
+                                    Category :  {data.category}<br />
+                                    Price : {data.price} $<br />
                                 </label>
                             </CardFooter>
                         </Card>
@@ -68,48 +124,24 @@ const ProductDetail = () => {
                     </div>
                     <div className="container justify-center">
                         <Image
-                            src="/Magic.png"
+                            src={fetchImage(data.img[0].img)}
                             alt="Nebula Noir Hoodie"
                             className="object-contain w-full"
                         />
-                        <div className="grid grid-flow-col gap-4 mt-4 p-4 w-1/2">
-                            {Array.from({ length: 4 }).map((_, i) => (
-                                <Image
-                                    src="/Magic.png"
-                                    width={1200}
-                                    alt="Magic"
-                                />
-                            ))}
-                        </div>
                         <div className="flex flex-row w-full justify-end items-center mt-5 ">
-                            <label className="text-xl">จำนวน :</label>
-                            <div className="flex items-center justify-center bg-white shadow-md rounded mx-4 p-1">
-                                <button
-                                    onClick={decreaseQuantity}
-                                    className="px-3 py-1 text-gray-500 hover:bg-gray-100 focus:outline-none"
-                                >
-                                    -
-                                </button>
-                                <span className="px-4 text-black">{quantity}</span>
-                                <button
-                                    onClick={increaseQuantity}
-                                    className="px-3 py-1 text-gray-500 hover:bg-gray-100 focus:outline-none"
-                                >
-                                    +
-                                </button>
+                            <div className="w-1/6 mx-4">
+                                <Button className=" text-white w-full rounded-lg mx-4" variant="ghost" onClick={AddCart}>
+                                    Have it now!
+                                </Button>
                             </div>
                             <Link href="/Payment">
-                                <Button className="bg-[#FF304F] text-white w-full rounded-lg mx-4 ">
+                                <Button className="bg-[#2B6CB0] text-white w-full rounded-lg mx-4 " onClick={AddCart}>
                                     Add to Cart
-                                </Button>
-                            </Link>
-                            <Link href="/Payment">
-                                <Button className="bg-[#FF304F] text-white w-full rounded-lg mx-4">
-                                    Have it now!
                                 </Button>
                             </Link>
                         </div>
                     </div>
+                    <ToastContainer />
                 </div>
             </div>
         </main>

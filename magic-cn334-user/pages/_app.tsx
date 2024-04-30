@@ -14,6 +14,7 @@ type Tokens = string;
 export default function App({ Component, pageProps }: AppProps) {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const Tokens = Cookies.get('authToken');
+
   const handleLogin = (status: boolean) => {
     setIsLoggedIn(status);
     if (status) {
